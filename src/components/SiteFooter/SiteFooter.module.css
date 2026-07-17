@@ -1,0 +1,103 @@
+.footer {
+  border-top: var(--content-rule-width) solid var(--color-border-primary);
+}
+
+.inner {
+  display: grid;
+  gap: var(--space-9);
+  width: min(100%, var(--max-width-page));
+  margin-inline: auto;
+  padding: var(--space-10) var(--page-gutter) var(--space-8);
+}
+
+.title {
+  font-family: var(--font-family-display);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.meta {
+  display: grid;
+  gap: var(--space-3);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+}
+
+.socialList {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  list-style: none;
+}
+
+.socialLink,
+.socialPending {
+  display: grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  place-items: center;
+}
+
+.socialLink {
+  color: var(--color-text-primary);
+  transition: opacity var(--duration-fast) var(--easing-default);
+}
+
+.socialLink:hover {
+  opacity: 0.68;
+}
+
+.socialPending {
+  color: var(--color-text-primary);
+}
+
+.socialLink svg,
+.socialPending svg {
+  width: 1.125rem;
+  height: 1.125rem;
+  overflow: visible;
+  fill: currentColor;
+  stroke: currentColor;
+  stroke-width: 1.6;
+}
+
+.socialLink svg path,
+.socialPending svg path {
+  stroke: none;
+}
+
+.socialLink svg rect,
+.socialLink svg circle,
+.socialPending svg rect,
+.socialPending svg circle {
+  fill: none;
+}
+
+.socialLink svg .iconFill,
+.socialPending svg .iconFill {
+  fill: currentColor;
+  stroke: none;
+}
+
+@media (min-width: 48rem) {
+  .inner {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: var(--grid-gutter);
+    align-items: end;
+    padding-block: var(--space-11) var(--space-9);
+  }
+
+  .title {
+    grid-column: span 5;
+  }
+
+  .meta {
+    grid-column: span 4;
+  }
+
+  .socialList {
+    grid-column: span 3;
+  }
+}
