@@ -42,7 +42,11 @@ export function WorkDetailPage() {
 
   return (
     <main className={pageStyles.page} id="main-content" tabIndex={-1}>
-      <Link className={detailStyles.backLink} to="/works">
+      <Link
+        className={detailStyles.backLink}
+        to="/works"
+        state={{ routeDirection: 'backward' }}
+      >
         ← 作品一覧へ戻る
       </Link>
       <header className={detailStyles.detailHeader}>

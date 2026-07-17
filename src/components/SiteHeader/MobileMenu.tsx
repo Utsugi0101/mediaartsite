@@ -34,9 +34,9 @@ export function MobileMenu({
     main?.setAttribute('inert', '')
 
     const frame = window.requestAnimationFrame(() => {
-      panel
-        ?.querySelector<HTMLElement>(focusableSelector)
-        ?.focus({ preventScroll: true })
+      panel?.querySelector<HTMLElement>('nav a[href]')?.focus({
+        preventScroll: true,
+      })
     })
 
     const handleKeyDown = (event: KeyboardEvent) => {

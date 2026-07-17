@@ -157,6 +157,7 @@ export function InteractiveStarfield() {
 
     const drawConnections = (projectedStars: ProjectedStar[]) => {
       const connectionDistance = width < 640 ? 82 : 112
+      const connectionDistanceSquared = connectionDistance ** 2
 
       context.lineWidth = 0.55
       context.strokeStyle = connectionColor
@@ -170,11 +171,15 @@ export function InteractiveStarfield() {
           second += 1
         ) {
           const candidate = projectedStars[second]
-          const distance = Math.hypot(star.x - candidate.x, star.y - candidate.y)
+          const distanceX = star.x - candidate.x
+          const distanceY = star.y - candidate.y
+          const distanceSquared = distanceX ** 2 + distanceY ** 2
 
-          if (distance > connectionDistance) {
+          if (distanceSquared > connectionDistanceSquared) {
             continue
           }
+
+          const distance = Math.sqrt(distanceSquared)
 
           context.globalAlpha =
             (1 - distance / connectionDistance) *

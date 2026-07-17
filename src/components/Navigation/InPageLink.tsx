@@ -36,6 +36,9 @@ export function InPageLink({
     if (target) {
       event.preventDefault()
       target.scrollIntoView({ behavior: getScrollBehavior(), block: 'start' })
+      window.requestAnimationFrame(() => {
+        target.focus({ preventScroll: true })
+      })
     }
   }
 

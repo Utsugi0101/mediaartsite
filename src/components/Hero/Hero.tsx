@@ -1,7 +1,7 @@
 import type { CSSProperties, PointerEvent } from 'react'
 import type { SiteConfig } from '../../types/site'
-import { formatEventDateRange } from '../../utils/date'
 import { resolveAssetUrl } from '../../utils/assets'
+import { EventDateRange } from '../EventDateRange/EventDateRange'
 import styles from './Hero.module.css'
 
 interface HeroProps {
@@ -53,11 +53,6 @@ function ConstellationA() {
 }
 
 export function Hero({ config }: HeroProps) {
-  const dateLabel = formatEventDateRange(
-    config.event.startDate,
-    config.event.endDate,
-  )
-
   const handlePointerMove = (event: PointerEvent<HTMLElement>) => {
     const bounds = event.currentTarget.getBoundingClientRect()
     const x = (event.clientX - bounds.left) / Math.max(bounds.width, 1) - 0.5
@@ -134,7 +129,12 @@ export function Hero({ config }: HeroProps) {
       <div className={styles.details}>
         <div className={styles.detailBlock}>
           <p className={styles.label}>会期</p>
-          <p className={styles.date}>{dateLabel}</p>
+          <p className={styles.date}>
+            <EventDateRange
+              startDate={config.event.startDate}
+              endDate={config.event.endDate}
+            />
+          </p>
         </div>
 
         <div className={styles.detailBlock}>

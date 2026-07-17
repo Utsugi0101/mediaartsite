@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import type { Work } from '../../types/work'
 import { WorkItem } from './WorkItem'
 import styles from './Works.module.css'
@@ -26,7 +27,6 @@ function WorkMarqueeRow({ direction, rowIndex, works }: WorkMarqueeRowProps) {
               <WorkItem
                 work={work}
                 index={index * 2 + rowIndex}
-                showCaption={false}
               />
             </li>
           ))}
@@ -37,7 +37,6 @@ function WorkMarqueeRow({ direction, rowIndex, works }: WorkMarqueeRowProps) {
               <WorkItem
                 work={work}
                 index={index * 2 + rowIndex}
-                showCaption={false}
               />
             </div>
           ))}
@@ -48,6 +47,7 @@ function WorkMarqueeRow({ direction, rowIndex, works }: WorkMarqueeRowProps) {
 }
 
 export function WorkMarquee({ works }: WorkMarqueeProps) {
+  const [isPaused, setIsPaused] = useState(false)
   const rows = [
     works.filter((_, index) => index % 2 === 0),
     works.filter((_, index) => index % 2 === 1),
@@ -55,19 +55,35 @@ export function WorkMarquee({ works }: WorkMarqueeProps) {
 
   return (
     <div
-      className={styles.marquee}
+      className={styles.marqueeFrame}
       data-work-marquee
-      aria-label="作品プレビュー"
     >
-      <div className={styles.marqueeRows}>
-        {rows.map((row, index) => (
-          <WorkMarqueeRow
-            direction={index % 2 === 0 ? 'forward' : 'reverse'}
-            key={index}
-            rowIndex={index}
-            works={row}
-          />
-        ))}
+      <div className={styles.marqueeControls}>
+        <button
+          className={styles.marqueeToggle}
+          type="button"
+          aria-pressed={isPaused}
+          onClick={() => setIsPaused((current) => !current)}
+        >
+          <span className={styles.marqueeToggleMark} aria-hidden="true" />
+          {isPaused ? '自動移動を再生' : '自動移動を停止'}
+        </button>
+      </div>
+      <div
+        className={styles.marquee}
+        data-paused={isPaused}
+        aria-label="作品プレビュー"
+      >
+        <div className={styles.marqueeRows}>
+          {rows.map((row, index) => (
+            <WorkMarqueeRow
+              direction={index % 2 === 0 ? 'forward' : 'reverse'}
+              key={index}
+              rowIndex={index}
+              works={row}
+            />
+          ))}
+        </div>
       </div>
     </div>
   )

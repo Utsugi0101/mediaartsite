@@ -2,6 +2,46 @@
   margin-top: clamp(3rem, 7vw, 6rem);
 }
 
+.marqueeFrame {
+  position: relative;
+}
+
+.marqueeControls {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: var(--space-5);
+}
+
+.marqueeToggle {
+  display: inline-flex;
+  gap: var(--space-4);
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0 var(--space-5);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-jp-label);
+  background: color-mix(in srgb, var(--color-bg-primary) 68%, transparent);
+  border: var(--content-rule-width) solid var(--color-border-secondary);
+}
+
+.marqueeToggle:hover {
+  color: var(--color-text-primary);
+  border-color: var(--color-border-primary);
+}
+
+.marqueeToggleMark {
+  width: 0.5rem;
+  height: 0.5rem;
+  background: var(--color-accent-primary);
+}
+
+.marqueeToggle[aria-pressed='true'] .marqueeToggleMark {
+  background: transparent;
+  border: 1px solid var(--color-accent-primary);
+}
+
 .marquee {
   --marquee-card-width: clamp(12rem, 58vw, 22rem);
   --marquee-gap: clamp(0.75rem, 2vw, 1.75rem);
@@ -71,8 +111,9 @@
   width: var(--marquee-card-width);
 }
 
-.marquee:hover .marqueeTrack,
-.marquee:focus-within .marqueeTrack {
+.marqueeFrame:hover .marqueeTrack,
+.marqueeFrame:focus-within .marqueeTrack,
+.marquee[data-paused='true'] .marqueeTrack {
   animation-play-state: paused;
 }
 
@@ -330,6 +371,10 @@
 }
 
 @media (min-width: 40rem) {
+  .marqueeControls {
+    justify-content: flex-end;
+  }
+
   .marquee {
     --marquee-card-width: clamp(14rem, 29vw, 25rem);
   }
@@ -358,6 +403,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .marqueeControls {
+    display: none;
+  }
+
   .marquee {
     overflow-x: auto;
     overscroll-behavior-inline: contain;

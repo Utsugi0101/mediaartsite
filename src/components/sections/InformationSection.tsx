@@ -1,5 +1,5 @@
 import type { SiteConfig } from '../../types/site'
-import { formatEventDateRange } from '../../utils/date'
+import { EventDateRange } from '../EventDateRange/EventDateRange'
 import { SectionHeading } from '../SectionHeading/SectionHeading'
 import styles from './Sections.module.css'
 
@@ -22,7 +22,12 @@ export function InformationSection({ event }: InformationSectionProps) {
         <dl className={styles.informationList}>
           <div className={styles.informationRow} data-information-kind="date">
             <dt>会期</dt>
-            <dd>{formatEventDateRange(event.startDate, event.endDate)}</dd>
+            <dd>
+              <EventDateRange
+                startDate={event.startDate}
+                endDate={event.endDate}
+              />
+            </dd>
           </div>
           <div className={styles.informationRow} data-information-kind="venue">
             <dt>会場</dt>

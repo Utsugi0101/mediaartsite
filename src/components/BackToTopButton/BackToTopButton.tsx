@@ -56,6 +56,9 @@ export function BackToTopButton() {
   }, [])
 
   const moveToTop = () => {
+    document
+      .querySelector<HTMLElement>('main')
+      ?.focus({ preventScroll: true })
     window.scrollTo({
       top: 0,
       behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches

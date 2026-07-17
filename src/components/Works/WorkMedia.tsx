@@ -36,7 +36,8 @@ export function WorkMedia({
           className={styles.image}
           src={resolveAssetUrl(image.src)}
           alt={image.alt}
-          loading={variant === 'grid' ? 'lazy' : 'eager'}
+          loading={variant === 'detail' ? 'eager' : 'lazy'}
+          decoding="async"
           onError={() => setFailedSource(image.src)}
         />
         {image.caption ? (

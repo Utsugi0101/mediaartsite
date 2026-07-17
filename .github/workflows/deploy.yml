@@ -39,6 +39,11 @@ jobs:
       - name: ビルド
         run: npm run build
 
+      - name: 画面テスト
+        run: npm run test:e2e
+        env:
+          VITE_BASE_PATH: /
+
       - name: Pagesを設定
         uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6
 

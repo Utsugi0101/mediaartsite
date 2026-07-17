@@ -167,3 +167,40 @@
 - 地図はクリップ形状と観測十字を重ねつつ、Google Mapsの操作性と情報を保持している。
 - 作品一覧・個別ページにも背景と巨大見出しが継続し、別テンプレートへ移動した印象にならない。
 - `prefers-reduced-motion`、キーボード操作、フォーカス表示、モバイルメニュー、HashRouterを維持している。
+
+---
+
+## 最終レビュー：ビジュアル・UX・レスポンシブ統合
+
+実施日：2026-07-17
+哲学：Spatial Editorial Constellation / Astronomical Instrument
+
+### 撮影した画面
+
+| スクリーンショット | 画面幅 | 確認内容 |
+| --- | --- | --- |
+| `screenshots/final-review-home-desktop-1280.png` | 1280×800 | トップ全体、情報階層、作品名、SNSアイコン |
+| `screenshots/final-review-home-tablet-768.png` | 768×1024 | トップ全体、中間幅での再構成 |
+| `screenshots/final-review-home-mobile-375.png` | 375×812 | トップ全体、一列化、タップ領域 |
+| `screenshots/final-review-works-desktop-1280.png` | 1280×800 | 作品一覧、三列構成 |
+| `screenshots/final-review-works-tablet-768.png` | 768×1024 | 作品一覧、二列構成 |
+| `screenshots/final-review-works-mobile-375.png` | 375×812 | 作品一覧、一列構成 |
+| `screenshots/final-review-detail-desktop-1280.png` | 1280×800 | 作品詳細、メタデータ、前後導線 |
+| `screenshots/final-review-detail-tablet-768.png` | 768×1024 | 作品詳細、中間幅レイアウト |
+| `screenshots/final-review-detail-mobile-375.png` | 375×812 | 作品詳細、一列レイアウト |
+| `screenshots/final-review-detail-initial-mobile-375.png` | 375×812 | 直リンク250ms後、初回ワイプが発火しないこと |
+| `screenshots/final-review-information-active-tablet-768.png` | 768×1024 | 会期を開始日・終了日単位で改行すること |
+| `screenshots/final-review-works-active-mobile-375.png` | 375×812 | 作品名と自動移動の停止ボタン |
+
+### 修正した問題
+
+1. 初回表示にも全面の黄緑ワイプが発火し、会期・会場の認識を遅らせていた。初回は演出を行わず、実際のルート変更時だけ発火するようにした。
+2. `/works` から作品詳細へ進む操作が `backward`、詳細から一覧へ戻る操作が `forward` になっていた。ルート階層と前後作品リンクの意図から方向を決めるようにした。
+3. 自動で動く作品プレビューに停止手段がなく、作品名も視覚的に表示されていなかった。44px以上の停止・再生ボタンと作品名を追加した。
+4. 同一セクションの再選択、先頭へ戻る操作、モバイルメニューを開いた直後のフォーカス移動を修正した。768px以上へリサイズした場合はメニューを自動で閉じる。
+5. 768pxで終了日の曜日だけが孤立していた。会期を日付単位へ分割し、意味の途中では改行しないようにした。
+6. Canvasの接続判定で、範囲外の星にも毎回平方根を計算していた。距離の二乗で先に除外して描画負荷を抑えた。
+
+### 最終判定
+
+公開を妨げるビジュアル、レスポンシブ、キーボード操作、WCAG A・AA上の問題は再検証で確認されなかった。未設定URLのSNSアイコンは、準備中であることを読み上げる既存仕様として維持した。本番作品情報、開場時間、正式ポスター素材は引き続き確定後の差し替え対象である。

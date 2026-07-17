@@ -20,7 +20,11 @@ export function WorkPagination({ works, currentSlug }: WorkPaginationProps) {
   return (
     <nav className={styles.pagination} aria-label="作品間の移動">
       {previous ? (
-        <Link className={styles.paginationLink} to={`/works/${previous.slug}`}>
+        <Link
+          className={styles.paginationLink}
+          to={`/works/${previous.slug}`}
+          state={{ routeDirection: 'backward' }}
+        >
           <span className={styles.paginationLabel}>前の作品</span>
           <span className={styles.paginationTitle}>{previous.title}</span>
         </Link>
@@ -31,6 +35,7 @@ export function WorkPagination({ works, currentSlug }: WorkPaginationProps) {
         <Link
           className={`${styles.paginationLink} ${styles.paginationNext}`}
           to={`/works/${next.slug}`}
+          state={{ routeDirection: 'forward' }}
         >
           <span className={styles.paginationLabel}>次の作品</span>
           <span className={styles.paginationTitle}>{next.title}</span>

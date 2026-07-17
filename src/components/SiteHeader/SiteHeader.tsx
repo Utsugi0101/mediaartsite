@@ -29,6 +29,18 @@ export function SiteHeader({ config }: SiteHeaderProps) {
     return () => window.removeEventListener('hashchange', handleHashChange)
   }, [])
 
+  useEffect(() => {
+    const desktopLayout = window.matchMedia('(min-width: 48rem)')
+    const handleLayoutChange = (event: MediaQueryListEvent) => {
+      if (event.matches) {
+        closeMenu(false)
+      }
+    }
+
+    desktopLayout.addEventListener('change', handleLayoutChange)
+    return () => desktopLayout.removeEventListener('change', handleLayoutChange)
+  }, [closeMenu])
+
   return (
     <header className={styles.header}>
       <SiteLogo logo={config.logo} onNavigate={() => closeMenu(false)} />

@@ -23,19 +23,19 @@
 }
 
 .routeScene[data-route-direction='forward'] {
-  animation: route-arrive-forward 720ms var(--easing-emphasis) both;
+  animation: route-arrive-forward 540ms var(--easing-emphasis) both;
 }
 
 .routeScene[data-route-direction='forward']::after {
-  animation: route-signal-forward 900ms var(--easing-emphasis) both;
+  animation: route-signal-forward 680ms var(--easing-emphasis) both;
 }
 
 .routeScene[data-route-direction='backward'] {
-  animation: route-arrive-backward 720ms var(--easing-emphasis) both;
+  animation: route-arrive-backward 540ms var(--easing-emphasis) both;
 }
 
 .routeScene[data-route-direction='backward']::after {
-  animation: route-signal-backward 900ms var(--easing-emphasis) both;
+  animation: route-signal-backward 680ms var(--easing-emphasis) both;
 }
 
 @keyframes route-arrive-forward {
@@ -57,7 +57,7 @@
   }
 
   18% {
-    opacity: 0.86;
+    opacity: 0.56;
   }
 
   52% {
@@ -78,7 +78,7 @@
   }
 
   18% {
-    opacity: 0.86;
+    opacity: 0.56;
   }
 
   52% {
