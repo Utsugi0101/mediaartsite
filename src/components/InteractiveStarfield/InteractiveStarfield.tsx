@@ -239,7 +239,7 @@ export function InteractiveStarfield() {
       ripples = ripples.filter((ripple) => time - ripple.startedAt < 1.35)
 
       ripples.forEach((ripple) => {
-        const progress = (time - ripple.startedAt) / 1.35
+        const progress = clamp((time - ripple.startedAt) / 1.35, 0, 1)
         const easedProgress = 1 - (1 - progress) ** 3
 
         context.globalAlpha = (1 - progress) * 0.5

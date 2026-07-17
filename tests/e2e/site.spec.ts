@@ -294,6 +294,8 @@ test('スクロールで次の星と星雲へ移動できる', async ({ page }) 
 })
 
 test('生成的な星空がポインター位置へ反応する', async ({ page }) => {
+  const pageErrors: Error[] = []
+  page.on('pageerror', (error) => pageErrors.push(error))
   await page.goto('./#/')
 
   const starfield = page.locator('[data-interactive-starfield-root]')
@@ -320,4 +322,6 @@ test('生成的な星空がポインター位置へ反応する', async ({ page 
     )
     .not.toBe('0px')
   await page.mouse.click(123, 234)
+  await page.waitForTimeout(50)
+  expect(pageErrors).toEqual([])
 })
