@@ -107,13 +107,13 @@ export function InteractiveStarfield() {
 
     const buildStars = () => {
       const random = createRandom(0x57a72026 + Math.round(width + height))
-      const starCount = width < 640 ? 74 : width < 1024 ? 112 : 158
+      const starCount = width < 640 ? 84 : width < 1024 ? 128 : 184
 
       stars = Array.from({ length: starCount }, (_, index) => ({
         x: random(),
         y: random(),
         depth: 0.25 + random() * 0.75,
-        radius: 0.35 + random() * 1.05,
+        radius: 0.42 + random() * 1.18,
         phase: random() * Math.PI * 2,
         speed: 0.12 + random() * 0.34,
         signal: index % 29 === 0,
@@ -156,7 +156,7 @@ export function InteractiveStarfield() {
     }
 
     const drawConnections = (projectedStars: ProjectedStar[]) => {
-      const connectionDistance = width < 640 ? 76 : 104
+      const connectionDistance = width < 640 ? 82 : 112
 
       context.lineWidth = 0.55
       context.strokeStyle = connectionColor
@@ -178,7 +178,7 @@ export function InteractiveStarfield() {
 
           context.globalAlpha =
             (1 - distance / connectionDistance) *
-            0.13 *
+            0.2 *
             Math.min(star.depth, candidate.depth)
           context.beginPath()
           context.moveTo(star.x, star.y)
@@ -193,7 +193,7 @@ export function InteractiveStarfield() {
         return
       }
 
-      const pointerRadius = width < 640 ? 124 : 178
+      const pointerRadius = width < 640 ? 132 : 196
       const nearest = projectedStars
         .map((star) => ({
           star,
@@ -201,7 +201,7 @@ export function InteractiveStarfield() {
         }))
         .filter(({ distance }) => distance < pointerRadius)
         .sort((first, second) => first.distance - second.distance)
-        .slice(0, 9)
+        .slice(0, 12)
 
       context.strokeStyle = signalColor
       context.lineWidth = 0.8
@@ -336,6 +336,9 @@ export function InteractiveStarfield() {
       pointer.x = event.clientX
       pointer.y = event.clientY
       pointer.active = true
+      field.dataset.pointerActive = 'true'
+      field.style.setProperty('--field-pointer-x', `${event.clientX}px`)
+      field.style.setProperty('--field-pointer-y', `${event.clientY}px`)
 
       if (!isReducedMotion) {
         const normalizedX = event.clientX / Math.max(width, 1) - 0.5
@@ -358,6 +361,7 @@ export function InteractiveStarfield() {
     const handlePointerLeave = (event: PointerEvent) => {
       if (event.relatedTarget === null) {
         pointer.active = false
+        field.dataset.pointerActive = 'false'
         field.style.setProperty('--nebula-pointer-x', '0px')
         field.style.setProperty('--nebula-pointer-y', '0px')
       }
@@ -445,6 +449,7 @@ export function InteractiveStarfield() {
       className={styles.field}
       data-interactive-starfield-root
       data-nebula-section="0"
+      data-pointer-active="false"
       aria-hidden="true"
     >
       <div className={styles.atmosphere} data-nebula-atmosphere>
@@ -453,6 +458,7 @@ export function InteractiveStarfield() {
         <span className={`${styles.cloud} ${styles.cloudThree}`} />
       </div>
       <canvas ref={canvasRef} data-interactive-starfield />
+      <span className={styles.instrument} />
       <div className={styles.grain} />
       <div className={styles.vignette} />
     </div>

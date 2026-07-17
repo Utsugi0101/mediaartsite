@@ -24,6 +24,7 @@ export function SectionHeading({
         </h2>
         {description ? <p className={styles.description}>{description}</p> : null}
       </div>
+      <span className={styles.node} aria-hidden="true" />
     </header>
   )
 }

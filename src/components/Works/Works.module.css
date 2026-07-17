@@ -1,13 +1,36 @@
 .previewContent {
-  margin-top: var(--space-10);
+  margin-top: clamp(3rem, 7vw, 6rem);
 }
 
 .marquee {
-  --marquee-card-width: clamp(11rem, 54vw, 20rem);
-  --marquee-gap: var(--grid-gutter);
+  --marquee-card-width: clamp(12rem, 58vw, 22rem);
+  --marquee-gap: clamp(0.75rem, 2vw, 1.75rem);
 
+  position: relative;
   width: 100%;
+  padding-block: var(--space-5);
   overflow: hidden;
+  transform: rotate(-1.15deg) scale(1.025);
+}
+
+.marquee::before,
+.marquee::after {
+  position: absolute;
+  z-index: 2;
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-border-primary), transparent);
+  content: '';
+  pointer-events: none;
+}
+
+.marquee::before {
+  top: 0;
+}
+
+.marquee::after {
+  bottom: 0;
 }
 
 .marqueeRows {
@@ -29,6 +52,10 @@
 .marqueeRow[data-direction='reverse'] .marqueeTrack {
   animation-name: work-marquee-reverse;
   animation-duration: 46s;
+}
+
+.marqueeRow:nth-child(2) {
+  transform: translateX(-8vw);
 }
 
 .marqueeGroup {
@@ -105,7 +132,7 @@
   margin: 0;
   overflow: hidden;
   background: var(--color-media-placeholder);
-  border: var(--content-rule-width) solid var(--color-border-secondary);
+  border: 0;
 }
 
 .mediaGrid {
@@ -143,14 +170,36 @@
   background-image:
     linear-gradient(to right, var(--color-decoration-line) 1px, transparent 1px),
     linear-gradient(to bottom, var(--color-decoration-line) 1px, transparent 1px);
-  background-size: 25% 25%;
+  background-color: var(--color-media-placeholder);
+  background-size: 20% 20%;
+  transition:
+    background-color var(--duration-slow) var(--easing-default),
+    transform var(--duration-slow) var(--easing-emphasis);
+}
+
+.marqueeItem:nth-child(3n + 1) .placeholder {
+  background-color: #16454a;
+}
+
+.marqueeItem:nth-child(3n + 2) .placeholder {
+  background-color: #28493d;
+}
+
+.marqueeItem:nth-child(3n) .placeholder {
+  background-color: #163b51;
+}
+
+.marqueeItem:hover .placeholder,
+.marqueeItem:focus-within .placeholder {
+  background-color: #21565a;
+  transform: scale(0.985);
 }
 
 .placeholder::before {
   position: absolute;
   width: 42%;
   aspect-ratio: 1;
-  border: var(--content-rule-width) solid var(--color-decoration-line);
+  border: var(--content-rule-width) solid color-mix(in srgb, var(--color-accent-primary) 34%, transparent);
   border-radius: var(--border-radius-full);
   content: '';
 }
@@ -181,8 +230,8 @@
   left: var(--space-6);
   color: var(--color-media-placeholder-ink);
   font-family: var(--font-family-display);
-  font-size: var(--font-size-2xl);
-  font-weight: var(--font-weight-medium);
+  font-size: clamp(2rem, 7vw, 5rem);
+  font-weight: var(--font-weight-light);
   letter-spacing: var(--letter-spacing-tight);
 }
 
@@ -192,7 +241,7 @@
   left: 19%;
   width: 69%;
   height: 1px;
-  background: var(--color-decoration-line);
+  background: linear-gradient(90deg, transparent, var(--color-star-line), var(--color-accent-primary));
   transform: rotate(-11deg);
   transform-origin: left center;
 }
@@ -246,11 +295,11 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  min-height: 3.5rem;
+  min-height: 5rem;
   margin-top: var(--space-10);
   padding-block: var(--space-5);
   color: var(--color-text-primary);
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-md);
   font-weight: var(--font-weight-medium);
   text-decoration: none;
   border-top: var(--content-rule-width) solid var(--color-border-primary);
@@ -282,7 +331,7 @@
 
 @media (min-width: 40rem) {
   .marquee {
-    --marquee-card-width: clamp(12rem, 27vw, 23rem);
+    --marquee-card-width: clamp(14rem, 29vw, 25rem);
   }
 
   .grid {

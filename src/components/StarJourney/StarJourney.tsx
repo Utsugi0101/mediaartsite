@@ -8,8 +8,8 @@ import styles from './StarJourney.module.css'
 
 const journeyLabels = ['stArt', 'コンセプト', '開催情報', '作品', 'アクセス']
 const starYPositions = [28, 68, 36, 66, 30]
-const panelXPositions = [0, 24, -18, 20, -10]
-const starSegmentWidth = 62
+const panelXPositions = [0, 14, -11, 13, -8]
+const starSegmentWidth = 54
 const focusY = 26
 
 type StarStyle = CSSProperties & {
@@ -102,8 +102,10 @@ export function StarJourney() {
 
       elements.forEach((element, index) => {
         const distance = Math.abs(index - progress)
-        const panelShift = clamp(panelXPositions[index] - cameraX, -46, 46)
-        const panelScale = 1 - Math.min(distance, 1) * 0.025
+        const mobileScale = window.innerWidth < 768 ? 0.24 : 1
+        const panelShift =
+          clamp(panelXPositions[index] - cameraX, -32, 32) * mobileScale
+        const panelScale = 1 - Math.min(distance, 1) * 0.015
 
         element.style.setProperty('--journey-panel-x', `${panelShift}vw`)
         element.style.setProperty('--journey-panel-scale', String(panelScale))

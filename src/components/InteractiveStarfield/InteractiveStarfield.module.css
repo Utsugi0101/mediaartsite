@@ -5,13 +5,28 @@
   --nebula-pointer-y: 0px;
   --nebula-rotation: -3deg;
   --nebula-hue: 0deg;
+  --field-pointer-x: 50vw;
+  --field-pointer-y: 50vh;
 
   position: fixed;
   z-index: var(--z-index-base);
   inset: 0;
   overflow: hidden;
   pointer-events: none;
-  background: var(--color-bg-primary);
+  background:
+    radial-gradient(circle at 12% 18%, rgb(30 103 107 / 38%), transparent 34%),
+    linear-gradient(145deg, #0b3338 0%, var(--color-bg-primary) 48%, #071e2b 100%);
+}
+
+.field::before {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background:
+    linear-gradient(115deg, transparent 0 44%, rgb(230 255 57 / 3%) 50%, transparent 56%),
+    repeating-linear-gradient(90deg, transparent 0 7.99rem, rgb(205 234 226 / 4%) 8rem);
+  content: '';
+  opacity: 0.58;
 }
 
 .atmosphere {
@@ -34,7 +49,7 @@
       color-mix(in srgb, var(--color-nebula-three) 48%, transparent),
       transparent 74%
     );
-  filter: hue-rotate(var(--nebula-hue)) saturate(0.9);
+  filter: hue-rotate(var(--nebula-hue)) saturate(1.08);
   transform: translate3d(
       calc(var(--nebula-section-x) + var(--nebula-pointer-x)),
       calc(var(--nebula-section-y) + var(--nebula-pointer-y)),
@@ -53,7 +68,7 @@
   border-radius: 50%;
   filter: blur(clamp(3.5rem, 8vw, 8.5rem));
   mix-blend-mode: screen;
-  opacity: 0.44;
+  opacity: 0.58;
 }
 
 .cloudOne {
@@ -103,6 +118,54 @@
   height: 100%;
 }
 
+.instrument {
+  position: absolute;
+  z-index: 3;
+  top: var(--field-pointer-y);
+  left: var(--field-pointer-x);
+  display: none;
+  width: 5.5rem;
+  height: 5.5rem;
+  border: 1px solid color-mix(in srgb, var(--color-accent-primary) 50%, transparent);
+  border-radius: 50%;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.72) rotate(-18deg);
+  transition:
+    width 320ms var(--easing-emphasis),
+    height 320ms var(--easing-emphasis),
+    opacity 240ms var(--easing-default),
+    transform 320ms var(--easing-emphasis);
+}
+
+.instrument::before,
+.instrument::after {
+  position: absolute;
+  background: var(--color-accent-primary);
+  content: '';
+  opacity: 0.65;
+}
+
+.instrument::before {
+  top: 50%;
+  right: -0.75rem;
+  left: -0.75rem;
+  height: 1px;
+}
+
+.instrument::after {
+  top: -0.75rem;
+  bottom: -0.75rem;
+  left: 50%;
+  width: 1px;
+}
+
+.field[data-pointer-active='true'] .instrument {
+  width: 7rem;
+  height: 7rem;
+  opacity: 0.34;
+  transform: translate(-50%, -50%) scale(1) rotate(0);
+}
+
 .grain {
   position: absolute;
   z-index: 3;
@@ -110,7 +173,7 @@
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='.44'/%3E%3C/svg%3E");
   background-size: 11.25rem 11.25rem;
   mix-blend-mode: soft-light;
-  opacity: 0.1;
+  opacity: 0.16;
 }
 
 .vignette {
@@ -121,10 +184,16 @@
     radial-gradient(
       circle at 48% 44%,
       transparent 14%,
-      rgb(1 8 10 / 22%) 76%,
-      rgb(1 7 9 / 38%) 100%
+      rgb(1 20 23 / 12%) 76%,
+      rgb(1 15 20 / 25%) 100%
     ),
-    linear-gradient(to bottom, rgb(1 9 11 / 2%), rgb(1 8 10 / 18%));
+    linear-gradient(to bottom, rgb(1 9 11 / 1%), rgb(1 8 10 / 10%));
+}
+
+@media (pointer: fine) {
+  .instrument {
+    display: block;
+  }
 }
 
 @keyframes cloud-one-drift {
@@ -152,5 +221,9 @@
 
   .cloud {
     animation: none;
+  }
+
+  .instrument {
+    display: none;
   }
 }

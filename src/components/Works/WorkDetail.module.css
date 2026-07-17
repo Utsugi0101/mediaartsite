@@ -15,6 +15,7 @@
 }
 
 .detailHeader {
+  position: relative;
   display: grid;
   gap: var(--space-6);
   padding-block: var(--space-6) var(--space-10);
@@ -32,10 +33,10 @@
   max-width: 18ch;
   overflow-wrap: break-word;
   font-family: var(--font-family-body);
-  font-size: var(--font-size-2xl);
-  font-weight: var(--font-weight-medium);
-  letter-spacing: var(--letter-spacing-jp-body);
-  line-height: var(--line-height-tight);
+  font-size: clamp(2.75rem, 8vw, 7.5rem);
+  font-weight: var(--font-weight-light);
+  letter-spacing: -0.055em;
+  line-height: 1.05;
   text-wrap: pretty;
 }
 
@@ -55,7 +56,7 @@
   max-width: var(--max-width-reading);
   white-space: pre-line;
   overflow-wrap: break-word;
-  font-size: var(--font-size-md);
+  font-size: clamp(1.05rem, 1.6vw, 1.3rem);
   letter-spacing: var(--letter-spacing-jp-body);
   line-height: var(--line-height-body-jp);
   text-wrap: pretty;
@@ -176,11 +177,11 @@
   }
 
   .workTitle {
-    grid-column: span 7;
+    grid-column: span 8;
   }
 
   .artistName {
-    grid-column: span 3;
+    grid-column: span 2;
     text-align: right;
   }
 
@@ -193,7 +194,7 @@
   .description,
   .metadata,
   .artistLinks {
-    grid-column: 5 / -1;
+    grid-column: 4 / -1;
   }
 
   .gallery {

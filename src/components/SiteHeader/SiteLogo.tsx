@@ -35,7 +35,13 @@ export function SiteLogo({ logo, onNavigate }: SiteLogoProps) {
           alt={logo.imageAlt ?? logo.text}
         />
       ) : (
-        <span>{logo.text}</span>
+        <span className={styles.logoText} aria-label={logo.text}>
+          {Array.from(logo.text).map((letter, index) => (
+            <span aria-hidden="true" key={`${letter}-${index}`}>
+              {letter}
+            </span>
+          ))}
+        </span>
       )}
     </Link>
   )

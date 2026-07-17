@@ -1,5 +1,9 @@
 .footer {
+  position: relative;
+  z-index: 2;
+  background: color-mix(in srgb, var(--color-bg-primary) 88%, transparent);
   border-top: var(--content-rule-width) solid var(--color-border-primary);
+  backdrop-filter: blur(1.5rem);
 }
 
 .inner {
@@ -11,10 +15,29 @@
 }
 
 .title {
+  display: flex;
   font-family: var(--font-family-display);
-  font-size: var(--font-size-2xl);
+  font-size: clamp(3.5rem, 8vw, 7rem);
   font-weight: var(--font-weight-semibold);
-  letter-spacing: var(--letter-spacing-tight);
+  letter-spacing: -0.105em;
+  line-height: 0.8;
+}
+
+.title span:nth-child(3) {
+  position: relative;
+  display: inline-block;
+  width: 0.72em;
+  color: transparent;
+}
+
+.title span:nth-child(3)::after {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  color: var(--color-accent-primary);
+  font-size: 0.72em;
+  content: '✦';
+  transform: translate(-50%, -50%);
 }
 
 .meta {

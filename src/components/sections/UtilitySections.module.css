@@ -1,7 +1,7 @@
 .accessGrid {
   display: grid;
-  gap: var(--space-9);
-  margin-top: var(--space-10);
+  gap: var(--space-10);
+  margin-top: clamp(3rem, 8vw, 7rem);
 }
 
 .accessCopy {
@@ -12,10 +12,11 @@
 
 .accessSummary {
   font-family: var(--font-family-body);
-  font-size: var(--font-size-2xl);
-  font-weight: var(--font-weight-medium);
-  letter-spacing: var(--letter-spacing-jp-body);
-  line-height: var(--line-height-tight);
+  max-width: 9em;
+  font-size: clamp(2.2rem, 6vw, 5.75rem);
+  font-weight: var(--font-weight-light);
+  letter-spacing: -0.06em;
+  line-height: 1.08;
   text-wrap: balance;
 }
 
@@ -32,8 +33,22 @@
   aspect-ratio: var(--map-aspect-ratio);
   overflow: hidden;
   background: var(--color-bg-secondary);
-  border: var(--content-rule-width) solid var(--color-border-secondary);
-  filter: grayscale(1) contrast(0.92) brightness(0.82);
+  border: var(--content-rule-width) solid var(--color-border-primary);
+  clip-path: polygon(0 4%, 94% 0, 100% 91%, 8% 100%);
+  filter: grayscale(1) sepia(0.2) hue-rotate(118deg) saturate(0.76) contrast(1.02) brightness(0.88);
+}
+
+.mapFrame::after {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background:
+    linear-gradient(90deg, transparent 49.9%, rgb(230 255 57 / 32%) 50%, transparent 50.1%),
+    linear-gradient(transparent 49.9%, rgb(230 255 57 / 32%) 50%, transparent 50.1%),
+    radial-gradient(circle at 50% 50%, transparent 0 3.75rem, rgb(230 255 57 / 28%) 3.8rem 3.85rem, transparent 3.9rem);
+  content: '';
+  opacity: 0.46;
+  pointer-events: none;
 }
 
 .mapFrame iframe {
@@ -48,14 +63,15 @@
   .accessGrid {
     grid-template-columns: repeat(12, minmax(0, 1fr));
     gap: var(--grid-gutter);
-    margin-top: var(--space-11);
+    margin-top: clamp(4rem, 8vw, 7rem);
   }
 
   .accessCopy {
-    grid-column: span 4;
+    grid-column: span 5;
   }
 
   .mapFrame {
-    grid-column: span 8;
+    grid-column: span 7;
+    margin-top: var(--space-9);
   }
 }

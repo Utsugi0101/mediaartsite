@@ -64,7 +64,7 @@
 
 ## 追補：日本語タイポグラフィレビュー
 
-実施日：2026-07-17  
+実施日：2026-07-17
 対象：トップ、作品一覧、作品詳細の日本語本文・見出し・補助情報
 
 ### 追加撮影
@@ -118,3 +118,52 @@
 ### 対応記録
 
 2026-07-17：文節単位の改行、コンセプトの太さと行間、日本語ラベルの字間、`overflow-wrap` の範囲、monoと日本語の混植を修正した。トップの補足文、作品一覧の仮データ説明、作品詳細のレイアウト確認用文章も画面から削除し、375px・768px・1280pxで再確認した。
+
+---
+
+## 再レビュー：Astronomical Instrument刷新
+
+実施日：2026-07-17
+哲学：Spatial Editorial Constellation / Astronomical Instrument
+
+### 撮影した画面
+
+| スクリーンショット | 画面幅 | 確認内容 |
+| --- | --- | --- |
+| `screenshots/review-wow-final-home-desktop-1280.png` | 1280×800 | トップ全体、空間移動、二列作品プレビュー |
+| `screenshots/review-wow-final-home-tablet-768.png` | 768×1024 | 中間幅の文字組みと情報密度 |
+| `screenshots/review-wow-final-home-mobile-375.png` | 375×812 | 一列化、会期・会場、作品・地図の再構成 |
+| `screenshots/review-wow-final-works-desktop-1280.png` | 1280×800 | 作品一覧の三列構成 |
+| `screenshots/review-wow-final-works-tablet-768.png` | 768×1024 | 作品一覧の二列構成 |
+| `screenshots/review-wow-final-works-mobile-375.png` | 375×812 | 作品一覧の一列構成とタップ領域 |
+| `screenshots/review-wow-final-detail-desktop-1280.png` | 1280×800 | 個別作品の見出し、主画像、メタデータ |
+| `screenshots/review-wow-final-detail-tablet-768.png` | 768×1024 | 個別作品の中間幅レイアウト |
+| `screenshots/review-wow-final-detail-mobile-375.png` | 375×812 | 個別作品の一列化、前後導線 |
+| `screenshots/review-wow-concept-desktop-1280.png` | 1280×800 | 注目中のコンセプトとキーワード信号 |
+| `screenshots/review-wow-works-desktop-1280.png` | 1280×800 | 注目中の二列作品マルキー |
+| `screenshots/review-wow-access-mobile-375.png` | 375×812 | 注目中のアクセス情報と地図 |
+| `screenshots/review-wow-star-a-desktop-1280.png` | 1280×800 | 星と接続線で描いたA、Hero全体 |
+| `screenshots/review-wow-star-a-mobile-375.png` | 375×812 | 星座Aの狭幅での判読性 |
+
+### 総評
+
+従来の静かな星景を、星を探して接続する「観測装置」へ刷新した。巨大な `stArt`、軌道、黄緑の信号、スクロールに連動する左右移動、カーソル周辺の接続、クリック時の波紋が同じ空間モデルで動く。演出を強めながら、最初の画面の会期・会場、各セクションの日本語、作品・アクセスへの導線は読み取れる状態を維持している。
+
+### 必須修正
+
+なし。375px、768px、1280pxの目視確認と自動検査で、横方向のオーバーフロー、文字の重なり、操作不能、重大なWCAG A・AA違反は確認されなかった。
+
+### 推奨修正
+
+1. **実機性能**：Canvasの星数と接続線を増やしたため、公開前にiOS SafariとAndroid Chromeで長時間のスクロールと発熱を確認する。必要な場合は画面幅だけでなく端末性能に応じて星数を下げる。
+2. **ポスター完成後の統合**：現在の鉱物的な青緑と黄緑は仮の視覚言語である。正式素材が決まり次第、`tokens.css` の星雲色とHero背景だけを差し替え、観測軌道、文字、座標系は維持する。
+
+### 良好な点
+
+- Heroの主役が明確で、星座として描いた `A` が `star / art / start` の重なりを文字そのもので示している。
+- `A` は頂点星、4つの節点、接続線、補助線で構成され、文字と星座のどちらにも読める。小さな共通ロゴでは同じ位置を四芒星へ置き換えている。
+- コンセプトの `art / star / 星座` は本文を壊さず、同じ信号色で関係を読み取れる。
+- 作品プレビューは二列が逆方向へ流れ、均一なカード一覧ではなく展示空間を横切る作品群として見える。
+- 地図はクリップ形状と観測十字を重ねつつ、Google Mapsの操作性と情報を保持している。
+- 作品一覧・個別ページにも背景と巨大見出しが継続し、別テンプレートへ移動した印象にならない。
+- `prefers-reduced-motion`、キーボード操作、フォーカス表示、モバイルメニュー、HashRouterを維持している。

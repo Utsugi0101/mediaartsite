@@ -20,11 +20,11 @@ export function InformationSection({ event }: InformationSectionProps) {
       <SectionHeading id="information-title" index="02" title="開催情報" />
       <div className={styles.contentGrid}>
         <dl className={styles.informationList}>
-          <div className={styles.informationRow}>
+          <div className={styles.informationRow} data-information-kind="date">
             <dt>会期</dt>
             <dd>{formatEventDateRange(event.startDate, event.endDate)}</dd>
           </div>
-          <div className={styles.informationRow}>
+          <div className={styles.informationRow} data-information-kind="venue">
             <dt>会場</dt>
             <dd>
               <p className={styles.venueName}>{event.venueName}</p>
@@ -36,12 +36,12 @@ export function InformationSection({ event }: InformationSectionProps) {
             </dd>
           </div>
           {event.openingHours ? (
-            <div className={styles.informationRow}>
+            <div className={styles.informationRow} data-information-kind="hours">
               <dt>開場時間</dt>
               <dd>{event.openingHours}</dd>
             </div>
           ) : null}
-          <div className={styles.informationRow}>
+          <div className={styles.informationRow} data-information-kind="organizer">
             <dt>主催</dt>
             <dd>{event.organizer}</dd>
           </div>

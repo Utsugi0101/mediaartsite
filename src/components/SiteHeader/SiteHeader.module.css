@@ -9,9 +9,13 @@
   justify-content: space-between;
   height: var(--header-height);
   padding-inline: var(--page-gutter);
-  background: color-mix(in srgb, var(--color-bg-primary) 78%, transparent);
-  border-bottom: var(--content-rule-width) solid var(--color-border-secondary);
-  backdrop-filter: blur(0.75rem) saturate(1.08);
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--color-bg-primary) 90%, transparent),
+    color-mix(in srgb, var(--color-bg-primary) 54%, transparent) 72%,
+    transparent
+  );
+  backdrop-filter: blur(0.5rem) saturate(1.12);
 }
 
 .logo {
@@ -20,11 +24,33 @@
   min-height: 2.75rem;
   color: var(--color-text-primary);
   font-family: var(--font-family-display);
-  font-size: var(--font-size-lg);
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
   font-weight: var(--font-weight-semibold);
   letter-spacing: var(--letter-spacing-tight);
   line-height: 1;
   text-decoration: none;
+}
+
+.logoText {
+  display: flex;
+  letter-spacing: -0.105em;
+}
+
+.logoText span:nth-child(3) {
+  position: relative;
+  display: inline-block;
+  width: 0.72em;
+  color: transparent;
+}
+
+.logoText span:nth-child(3)::after {
+  position: absolute;
+  top: 49%;
+  left: 50%;
+  color: var(--color-accent-primary);
+  font-size: 0.74em;
+  content: '✦';
+  transform: translate(-50%, -50%);
 }
 
 .logoImage {
@@ -56,8 +82,9 @@
   align-items: center;
   min-height: 2.75rem;
   color: var(--color-text-secondary);
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-xs);
   font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-jp-label);
   text-decoration: none;
   transition: color var(--duration-fast) var(--easing-default);
 }
@@ -65,13 +92,18 @@
 .navigationLink::after {
   position: absolute;
   right: 0;
-  bottom: 0.35rem;
-  left: 0;
-  height: 1px;
+  right: auto;
+  bottom: 0.2rem;
+  left: 50%;
+  width: 0.32rem;
+  height: 0.32rem;
   background: currentColor;
-  transform: scaleX(0);
-  transform-origin: right center;
-  transition: transform var(--duration-normal) var(--easing-emphasis);
+  border-radius: 50%;
+  opacity: 0;
+  transform: translate(-50%, 0.3rem) scale(0);
+  transition:
+    opacity var(--duration-normal) var(--easing-emphasis),
+    transform var(--duration-normal) var(--easing-emphasis);
   content: '';
 }
 
@@ -82,8 +114,8 @@
 
 .navigationLink:hover::after,
 .navigationLink[aria-current='page']::after {
-  transform: scaleX(1);
-  transform-origin: left center;
+  opacity: 1;
+  transform: translate(-50%, 0) scale(1);
 }
 
 .menuButton,
@@ -147,7 +179,9 @@
   width: min(100%, 30rem);
   min-height: 100%;
   padding: 0 var(--page-gutter) var(--space-8);
-  background: var(--color-bg-secondary);
+  background:
+    radial-gradient(circle at 80% 20%, color-mix(in srgb, var(--color-nebula-one) 60%, transparent), transparent 38%),
+    var(--color-bg-secondary);
   border-left: var(--content-rule-width) solid var(--color-border-secondary);
 }
 
@@ -178,8 +212,9 @@
   align-items: baseline;
   padding-block: var(--space-7);
   color: var(--color-text-primary);
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-medium);
+  font-size: clamp(2rem, 10vw, 4rem);
+  font-weight: var(--font-weight-light);
+  letter-spacing: -0.04em;
   line-height: var(--line-height-tight);
   text-decoration: none;
   border-bottom: var(--content-rule-width) solid var(--color-border-secondary);

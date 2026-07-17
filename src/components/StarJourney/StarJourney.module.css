@@ -1,5 +1,5 @@
 .field {
-  --journey-focus-x: 82vw;
+  --journey-focus-x: 86vw;
   --journey-focus-y: 26vh;
 
   position: fixed;
@@ -37,8 +37,8 @@
 .connections polyline {
   fill: none;
   stroke: var(--color-decoration-line);
-  stroke-dasharray: 0.35rem 0.7rem;
-  stroke-width: 0.65;
+  stroke-dasharray: 0.25rem 0.9rem;
+  stroke-width: 0.8;
   vector-effect: non-scaling-stroke;
 }
 
@@ -98,18 +98,18 @@
   z-index: 3;
   top: var(--journey-focus-y);
   left: var(--journey-focus-x);
-  width: 4rem;
-  height: 4rem;
+  width: clamp(7rem, 13vw, 12rem);
+  height: clamp(7rem, 13vw, 12rem);
   border: var(--content-rule-width) solid var(--color-decoration-line);
   border-radius: var(--border-radius-full);
-  opacity: 0.9;
+  opacity: 0.72;
   transform: translate(-50%, -50%);
   animation: focus-orbit 9s linear infinite;
 }
 
 .focusRing::before {
   position: absolute;
-  inset: -1.5rem;
+  inset: -2.75rem;
   border: var(--content-rule-width) solid var(--color-decoration-line);
   border-radius: inherit;
   content: '';
@@ -120,8 +120,8 @@
   position: absolute;
   top: -0.1875rem;
   left: 50%;
-  width: 0.3125rem;
-  height: 0.3125rem;
+  width: 0.42rem;
+  height: 0.42rem;
   background: var(--color-accent-primary);
   border-radius: var(--border-radius-full);
   content: '';
@@ -133,7 +133,7 @@
   z-index: 1;
   top: var(--journey-focus-y);
   left: var(--journey-focus-x);
-  width: clamp(9rem, 18vw, 17rem);
+  width: clamp(16rem, 30vw, 30rem);
   aspect-ratio: 1;
   background: radial-gradient(
     circle,
@@ -143,7 +143,7 @@
   );
   border-radius: var(--border-radius-full);
   mix-blend-mode: screen;
-  opacity: 0.68;
+  opacity: 0.76;
   transform: translate(-50%, -50%);
   animation: focus-breathe 7s ease-in-out infinite alternate;
 }
@@ -205,7 +205,7 @@
   transform: translate3d(var(--journey-panel-x, 0), 0, 0)
     scale(var(--journey-panel-scale, 1));
   transform-origin: center center;
-  transition: transform 140ms linear;
+  transition: transform 180ms linear;
   will-change: transform;
 }
 
@@ -222,7 +222,7 @@
 
 @media (min-width: 48rem) {
   .field {
-    --journey-focus-x: 78vw;
+    --journey-focus-x: 80vw;
   }
 }
 

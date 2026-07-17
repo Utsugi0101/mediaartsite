@@ -2,7 +2,7 @@
   position: relative;
   isolation: isolate;
   min-height: 100vh;
-  background: var(--color-bg-primary);
+  background: transparent;
 }
 
 .routeScene {
@@ -11,27 +11,84 @@
   min-height: 100vh;
 }
 
+.routeScene::after {
+  position: fixed;
+  z-index: 60;
+  inset: 0;
+  background: var(--color-accent-primary);
+  clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+  content: '';
+  opacity: 0;
+  pointer-events: none;
+}
+
 .routeScene[data-route-direction='forward'] {
   animation: route-arrive-forward 720ms var(--easing-emphasis) both;
+}
+
+.routeScene[data-route-direction='forward']::after {
+  animation: route-signal-forward 900ms var(--easing-emphasis) both;
 }
 
 .routeScene[data-route-direction='backward'] {
   animation: route-arrive-backward 720ms var(--easing-emphasis) both;
 }
 
+.routeScene[data-route-direction='backward']::after {
+  animation: route-signal-backward 900ms var(--easing-emphasis) both;
+}
+
 @keyframes route-arrive-forward {
   from {
-    filter: blur(0.45rem);
-    opacity: 0;
     transform: translate3d(8vw, 0, 0) scale(0.985);
   }
 }
 
 @keyframes route-arrive-backward {
   from {
-    filter: blur(0.45rem);
-    opacity: 0;
     transform: translate3d(-8vw, 0, 0) scale(0.985);
+  }
+}
+
+@keyframes route-signal-forward {
+  0% {
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+    opacity: 0;
+  }
+
+  18% {
+    opacity: 0.86;
+  }
+
+  52% {
+    clip-path: polygon(0 0, 100% 0, 82% 100%, 0 100%);
+    opacity: 0.1;
+  }
+
+  100% {
+    clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+    opacity: 0;
+  }
+}
+
+@keyframes route-signal-backward {
+  0% {
+    clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+    opacity: 0;
+  }
+
+  18% {
+    opacity: 0.86;
+  }
+
+  52% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 18% 100%);
+    opacity: 0.1;
+  }
+
+  100% {
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+    opacity: 0;
   }
 }
 
@@ -57,6 +114,11 @@
 @media (prefers-reduced-motion: reduce) {
   .routeScene[data-route-direction='forward'],
   .routeScene[data-route-direction='backward'] {
+    animation: none;
+  }
+
+  .routeScene[data-route-direction='forward']::after,
+  .routeScene[data-route-direction='backward']::after {
     animation: none;
   }
 }
