@@ -46,6 +46,10 @@
   transform: translateY(-0.125rem);
 }
 
+:global(html.starJourneyEnabled[data-moving-to-top='true']) {
+  scroll-snap-type: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .button,
   .button[data-visible='true'],

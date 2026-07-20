@@ -3,6 +3,8 @@ import styles from './BackToTopButton.module.css'
 
 const visibilityThreshold = 400
 const wheelIntentDuration = 800
+const scrollCompletionTimeout = 2000
+const settledFrameTarget = 6
 
 export function BackToTopButton() {
   const [isVisible, setIsVisible] = useState(false)
@@ -59,12 +61,49 @@ export function BackToTopButton() {
     document
       .querySelector<HTMLElement>('main')
       ?.focus({ preventScroll: true })
+
+    const root = document.documentElement
+    const isJourneyActive = root.classList.contains('starJourneyEnabled')
+    const startedAt = performance.now()
+    let settledFrames = 0
+
+    if (isJourneyActive) {
+      root.dataset.movingToTop = 'true'
+    }
+
     window.scrollTo({
       top: 0,
       behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
         ? 'auto'
         : 'smooth',
     })
+
+    if (!isJourneyActive) {
+      return
+    }
+
+    const restoreJourneySnap = () => {
+      if (window.scrollY <= 1) {
+        settledFrames += 1
+      } else {
+        settledFrames = 0
+      }
+
+      if (settledFrames >= settledFrameTarget) {
+        delete root.dataset.movingToTop
+        return
+      }
+
+      if (performance.now() - startedAt >= scrollCompletionTimeout) {
+        window.scrollTo({ top: 0, behavior: 'auto' })
+        delete root.dataset.movingToTop
+        return
+      }
+
+      window.requestAnimationFrame(restoreJourneySnap)
+    }
+
+    window.requestAnimationFrame(restoreJourneySnap)
   }
 
   return (
